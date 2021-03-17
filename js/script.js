@@ -27,39 +27,3 @@ $('.user-form').on('submit', (event) => {
 			$("#result").html(`Movie is not find!`);
 		})
 })
-
-
-
-// fetch('http://www.omdbapi.com/?apikey=5440cbea&t=')
-// 	.then((response) => response.json())
-// 	.then(() )
-
-// console.log(film);
-
-// http://www.omdbapi.com/?apikey=5440cbea&t=
-
-
-
-
-// function render(post) {
-// 	$("#root").html(`
-// 	<article>
-// 		<div>
-// 			<p>Name: ${post.username} ${post.name}</p>
-// 			<p>Email: <a href="mailto:${post.email}">${post.username}@april.biz</a></p>
-// 			<p>Adress: ${post.address.street} ${post.address.suite} ${post.address.city} ${post.address.zipcode} ${post.address.geo.lat} ${post.address.geo.lng} </p>
-// 			<p>Phone: Call me at <a href="tel:${post.phone}">${post.phone}</a></p>
-// 			<p>Website: <a href="http://${post.website}" target="_blank">${post.website}</a></p>
-// 			<p>Company: ${post.company.name}</p>
-// 		</div>
-// 	</article>
-// 	`)
-// }
-
-// fetch('https://jsonplaceholder.typicode.com/users/1')
-//   .then((response) => response.json())
-//   .then((post) => render(post))
-//   .catch((error) => {
-//     console.log(error);
-//   });
-  
