@@ -1,29 +1,40 @@
 ;
 
 function createList(movie) {
-	$("#result").html(`
-	<p>Film name: ${movie.Title}.</p>
-	<p>Year: ${movie.Year}.</p>
-	<p>IMDBid: ${movie.imdbID}.</p>
-	<p>Genre: ${movie.Type}.</p>
+	$("#result").append(`
+	<img class="poster" src="${movie.Poster}" alt="Poster"></img>
+	<p><b>Film name:</b> ${movie.Title}.</p>
+	<button class="details-btn btn btn-outline-secondary" type="button" id="button-addon2">Details</button>
+	<div class="details">
+		<p><b>Film ID:</b> ${movie.imdbID}.</p>
+		<p><b>Type:</b> ${movie.Type}.</p>
+		<p><b>Year:</b> ${movie.Year}.</p>
+	</div>
+	<hr />
 	`)
 }
 
 $('.user-form').on('submit', (event) => {
 	event.preventDefault();
-	let film = $('#search-film').val();
-	let type = $('#select option:selected').val();
-	let link = `http://www.omdbapi.com/?s=${film}&type=${type}&apikey=5440cbea`;
+	$("#result").empty();
+	const film = $('#search-film').val();
+	const type = $('#select option:selected').val();
+	const link = `http://www.omdbapi.com/?s=${film}&type=${type}&apikey=5440cbea`;
 	
 	fetch(link)
 		.then((response) => response.json())
 		.then((responsed) => {
 			for (let i = 0; i < responsed.Search.length; ++i) {
-				createList(responsed.Search[i]);
+				const films = responsed.Search[i];
+				createList(films);
 			}
+					$('.details-btn').on('click', function() {
+						$(this).next().toggleClass('active');
+					})
 		})
 		.catch((error) => {
 			console.log(error)
 			$("#result").html(`Movie is not find!`);
 		})
+		
 })
