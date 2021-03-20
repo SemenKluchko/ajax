@@ -1,0 +1,13 @@
+.user-form {
+    margin: 5% auto;
+    width: 50%;
+}
+
+
+.details {
+    display: none;
+}
+
+.active {
+    display: block;
+}
