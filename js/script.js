@@ -1,17 +1,33 @@
 ;
 
+const FILM_KEY = 'Favorite films';
+
 function createList(movie) {
 	$("#result").append(`
 	<img class="poster" src="${movie.Poster}" alt="Poster"></img>
-	<p><b>Film name:</b> ${movie.Title}.</p>
+	<p><b>Film name:</b><span> ${movie.Title}.</span></p>
 	<button class="details-btn btn btn-outline-secondary" type="button" id="button-addon2">Details</button>
+	<button class="favorite-btn btn btn-outline-secondary" type="button" id="button-addon2">Add to favorite!</button>
 	<div class="details">
-		<p><b>Film ID:</b> ${movie.imdbID}.</p>
-		<p><b>Type:</b> ${movie.Type}.</p>
-		<p><b>Year:</b> ${movie.Year}.</p>
+	<p class="imdbID">${movie.imdbID}.</p>
+	<p><b>Type:</b> ${movie.Type}.</p>
+	<p><b>Year:</b> ${movie.Year}.</p>
 	</div>
 	<hr />
 	`)
+}
+
+
+
+function addToFavirote(film) {
+	const filmData = window.localStorage.getItem(FILM_KEY);
+	const filmDataList = JSON.parse(filmData || JSON.stringify([]));
+
+	filmDataList.push(film);
+
+	const filmDataToString = JSON.stringify(filmDataList);
+
+	window.localStorage.setItem(FILM_KEY, filmDataToString);
 }
 
 $('.user-form').on('submit', (event) => {
@@ -28,9 +44,13 @@ $('.user-form').on('submit', (event) => {
 				const films = responsed.Search[i];
 				createList(films);
 			}
-					$('.details-btn').on('click', function() {
-						$(this).next().toggleClass('active');
-					})
+			$('.favorite-btn').on('click', function() {
+				const currentFilm = $(this).next().find('.imdbID').text();
+				addToFavirote(currentFilm);
+			})
+			$('.details-btn').on('click', function() {
+				$(this).siblings('.details').toggleClass('active');
+			})
 		})
 		.catch((error) => {
 			console.log(error)
